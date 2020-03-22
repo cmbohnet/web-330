@@ -1,0 +1,78 @@
+<!--
+============================================
+; Title: Assignment 5.2
+; Author: Professor Krasso
+; Date: 19 March 2020
+; Modified By: Chis Bohnet
+; Description: Proxy example.  There are times when it is necessary for us to control the access and context behind an object,
+; and this is where the Proxy pattern can be useful (Osmani, 2013). In jQuery core, a jQuery.proxy() method exists that accepts as input
+; a function and returns a new one that will have a specific context. This ensures that the value of this within a function is the
+; value we expect (Osmani, 2013).
+;
+; Remote execution, object access control, and enforcing the context of a function requires the value of this to span across multiple
+; functions. The $.proxy function facilitates this process by offering two (2) syntactical versions, $(selector).proxy(function, context)
+; and $(selector).proxy(context, name).
+============================================
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Proxy Pattern Examples</title>
+
+    <!-- jquery Reference Library -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <!-- Example 1 -->
+      <h2>Proxy Example 1</h2>
+      <button id="btnExample1">Run test</button>
+      <br /><span id="proxyExampleOne"></span>
+
+      <hr />
+
+      <!-- Example 2 -->
+      <h2>Proxy Example 2</h2>
+      <button id="btnExample2Left">Run left test</button> |
+      <button id="btnExample2Right">Run right test</button> <br /><span
+        id="proxyExampleTwo"
+      ></span>
+
+      <hr />
+    </div>
+
+    <script>
+      //Recreate proxy example one (1) using your own object fields and display function.
+      $(function() {
+        // Example 1 - The display function should append the field values to a span tag
+        var student = {
+          fullName: "Chris Bohnet",
+          degree: "Web Development",
+          display: function() {
+            //clear the span tag before appending the new values
+            $("#proxyExampleOne").html("");
+            $("#proxyExampleOne").append(
+              "<br />Name: " + this.fullName + "<br />" + "Degree: " + this.degree
+            );
+          }
+        };
+
+        $("#btnExample1").click($.proxy(student, "display"));
+
+        // Example 2
+        var georgie = { name: "Georgie" };
+        var sam = { name: "Sam" };
+
+        var writer = function() {
+          $("#proxyExampleTwo").html("");
+          $("#proxyExampleTwo").append("<br />Name: " + this.name);
+        };
+
+        $("#btnExample2Left").on("click", $.proxy(writer, georgie));
+        $("#btnExample2Right").on("click", $.proxy(writer, sam));
+      });
+    </script>
+  </body>
+</html>
