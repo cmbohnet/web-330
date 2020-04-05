@@ -1,0 +1,82 @@
+<!--
+============================================
+; Title: Bohnet_Assignment_7.4
+; Author: Chris Bohnet
+; Date: 3 April 2020
+; Modified By:
+; Description: Knockout foreach Binding with style and attr  -
+; Knockout.js offers several other useful bindings, which includes: visible, html, css, style, and attr. The “attr” binding
+; provides a generic way to set the value of any attribute for the associated DOM element. This is useful, for example, when you
+; need to set the title attribute of an element, the src of an img tag, or the href of a link based on values in your view model,
+; with the attribute value being updated automatically whenever the corresponding model property changes (Knockout.js, 2017).
+;
+; The ”style” binding adds or removes one or more style values to the associated DOM element. This is useful, for example,
+; to highlight some value in red if it becomes negative, or to set the width of a bar to match a numerical value that changes
+; (Knockout.js, 2017).
+;
+; Create an array of five (5) JavaScript tutorial objects
+; Each object must include a website URL, title, and description
+; Using the “foreach” binding, iterate over the list of JavaScript tutorial objects and output the results in a styled
+; Boostrap 4 table (see the previous examples for code snippets)
+; Table th values:
+; Title
+; Description
+; Link
+; The link must open in a new window and include CSS styling – hint: use the attr and style bindings
+;
+============================================
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Exercise 7.4</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!-- JavaScript Libraries -->
+    <script src="../knockout-3.5.1.js"></script>
+</head>
+<body>
+  <div role="main" class="container">
+
+    <h2>The "foreach" binding</h2>
+    <table class="table table-light table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach:tutorials">
+        <tr>
+          <td data-bind="text: title"></td>
+          <td data-bind="text: description"></td>
+          <td><a data-bind="style: {color: 'red'}, attr: { href: link }" target="_blank">Visit site</a></td>
+             
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+ function tutorialsViewModel() {
+   this.tutorials=ko.observableArray([
+     {linkTitle: 1, title:"The Complete JavaScript Course", description: "Master JavaScript with the most complete course.  Projects, challenges, quizzes, JavaScript ES6+, OOP, AJAX, Webpack", link: "https://www.udemy.com/course/the-complete-javascript-course/"},
+     {linkTitle: 1, title:"Learn JavaScript - Free Interactive JavaScript Tutorial", description: "Interactive JavaScript tutorial for beginners through experienced levels.", link: "https://www.learn-js.org/"},
+     {linkTitle: 1, title:"Javascript by Pluralsight", description: "Start learning JavaScript with the interactive simulator for free.  Easy to follow and have you coding the basics in no time.", link: "https://www.javascript.com/try"},
+     {linkTitle: 1, title:"JavaScript Tutorial: SoloLearn: Learn to code for free", description: "Introduction to JavaScript, Creating your first JavaScript, Adding JavaScript to a Web Page, External JavaScript.", link: "https://www.sololearn.com/Course/JavaScript/"},
+     {linkTitle: 1, title:"JavaScript Tutorial: Learn JavaScript for Free: Codecademy", description: "Learn JavaScript and JavaScript arrays to build interactive websites and pages that adapt to every device.", link: "https://www.codecademy.com/learn/introduction-to-javascript"}
+ ]);
+ }
+
+ ko.applyBindings(new tutorialsViewModel());
+</script>
+
+</body></html>

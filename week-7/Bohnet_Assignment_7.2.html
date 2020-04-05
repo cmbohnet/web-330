@@ -1,0 +1,76 @@
+<!--
+============================================
+; Title: Bohnet_Assignment_7.2
+; Author: Chris Bohnet
+; Date: 3 April 2020
+; Modified By:
+; Description: Knockou If Binding -
+; According to Knockout.js (2017), “the if binding causes a section of markup to appear in your document (and to have its data-bind
+; attribute applied), only if a specified expression evaluates to true (or a true-ish value such as a non-null object or nonempty string).
+; Similar to JavaScript if…else statements, the “if” binding allows you to build document specific content, given some criteria.
+; The true power of client-side JavaScript frameworks becomes apparent when you begin introducing “language like” features in the User
+; Interface. Knockout.js is one of many client-side frameworks that simplify this process through “binding.”
+;
+============================================
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Exercise 7.2</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!-- JavaScript Libraries -->
+    <script src="../knockout-3.5.1.js"></script>
+</head>
+<body>
+  <div role="main" class="container">
+    <br/><br/>
+
+    <h2>Person</h2>
+    <div class="form-group">
+      <label for="txtFirstName">First Name:</label>
+      <input type="text" data-bind="value:firstName" class="form-control" id="txtFirstName"/>
+    </div>
+
+    <div data-bind="if:displayName">
+      <div class="form-group">
+        <label for="txtLastName">Last Name:</label>
+        <input type="text" data-bind="value:lastName" class="form-control" id="txtLastName"/>
+      </div>
+    </div>
+    <br/>
+    <div data-bind="if:fullName">
+      <h2><span id="personOutput" class="alert-success" data-bind="text:fullName"></span></h2>
+    </div>
+    <br/>
+
+  </div>
+
+
+<script>
+ function PersonViewModel() {
+   this.firstName=ko.observable("");
+   this.lastName=ko.observable("");
+
+   this.displayName=ko.pureComputed(function() {
+     return this.firstName();
+   },this);
+
+   this.fullName=ko.pureComputed(function() {
+     return this.firstName()+ " " + this.lastName();
+
+   },this);
+ }
+
+ ko.applyBindings(new PersonViewModel());
+</script>
+
+</body>
+</html>
